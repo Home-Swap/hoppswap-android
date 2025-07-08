@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1026727022192",
+    "project_id": "homeswap-455720",
+    "storage_bucket": "homeswap-455720.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026727022192:android:8dce3c07b3eca15eb0eeb5",
+        "android_client_info": {
+          "package_name": "com.hoppswap.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026727022192-i8tg2tnhn39es4aknn1omg5s3pt1e2ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAK9zMzm-wb77n-XIJ7gGAf_Vh6qSGmSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026727022192-i8tg2tnhn39es4aknn1omg5s3pt1e2ac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

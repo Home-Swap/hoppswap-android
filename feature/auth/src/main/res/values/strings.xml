@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_password">Password</string>
+    <string name="cont_desc_hide_password">Hide password</string>
+    <string name="cont_desc_show_password">Show password</string>
+    <string name="login_error_email">That email is invalid, please enter a valid email</string>
+    <string name="login_error_auth">We were unable to log in with those details, please check and try again.</string>
+    <string name="button_login">Login</string>
+    <string name="label_sign_in">Sign In</string>
+    <string name="label_email">Email</string>
+    <string name="cont_desc_logo">HoppSwap logo</string>
+</resources>
