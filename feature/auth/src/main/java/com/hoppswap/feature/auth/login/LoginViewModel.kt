@@ -16,9 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val attemptLoginUseCase: AttemptLoginUseCase
-) : BaseViewModel() {
+class LoginViewModel @Inject constructor(private val attemptLoginUseCase: AttemptLoginUseCase) : BaseViewModel() {
 
     private val _action = MutableSharedFlow<LoginAction>()
     val action: SharedFlow<LoginAction> = _action

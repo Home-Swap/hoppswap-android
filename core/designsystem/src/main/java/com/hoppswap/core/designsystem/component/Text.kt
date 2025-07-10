@@ -17,6 +17,16 @@ fun Heading(@StringRes text: Int, modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun EmptyLabel(@StringRes text: Int, modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(text),
+        color = MaterialTheme.colorScheme.secondary,
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = modifier
+    )
+}
+
+@Composable
 fun FormError(@StringRes text: Int, modifier: Modifier = Modifier) {
     Text(
         text = stringResource(text),

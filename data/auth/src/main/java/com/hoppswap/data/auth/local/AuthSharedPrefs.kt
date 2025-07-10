@@ -1,18 +1,18 @@
 package com.hoppswap.data.auth.local
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
+import com.hoppswap.core.network.TokenStore
 import com.hoppswap.data.auth.model.User
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import androidx.core.content.edit
 
 private const val KEY_USER = "user"
 private const val KEY_TOKEN = "session_token"
 
-class AuthSharedPrefs @Inject constructor(
+class AuthSharedPrefs(
     private val sharedPreferences: SharedPreferences,
-    private val json: Json = Json { ignoreUnknownKeys = true }
-) {
+    private val json: Json
+): TokenStore {
 
     fun saveUser(user: User) {
         val jsonString = json.encodeToString(user)
@@ -30,11 +30,11 @@ class AuthSharedPrefs @Inject constructor(
         }
     }
 
-    fun saveSessionToken(token: String) {
+    override fun saveSessionToken(token: String) {
         sharedPreferences.edit { putString(KEY_TOKEN, token) }
     }
 
-    fun getSessionToken(): String? = sharedPreferences.getString(KEY_TOKEN, null)
+    override fun getSessionToken(): String? = sharedPreferences.getString(KEY_TOKEN, null)
 
     fun logout() {
         sharedPreferences.edit {

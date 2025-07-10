@@ -2,13 +2,13 @@ package com.hoppswap.feature.property.details
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import com.hoppswap.data.auth.model.Property
 import kotlinx.serialization.Serializable
 
 @Serializable
 object PropertyDetailsScreen
 
 @Composable
-fun PropertyDetailsScreen(controller: NavHostController, viewModel: PropertyDetailsViewModel = hiltViewModel()) {
+fun PropertyDetailsScreen(property: Property, viewModel: PropertyDetailsViewModel = hiltViewModel()) {
 
 }

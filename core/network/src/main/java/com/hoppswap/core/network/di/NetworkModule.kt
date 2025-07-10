@@ -1,6 +1,8 @@
 package com.hoppswap.core.network.di
 
 import com.hoppswap.core.network.BuildConfig
+import com.hoppswap.core.network.HeaderInterceptor
+import com.hoppswap.core.network.TokenStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +27,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttp() =
+    fun provideHeaderInterceptor(tokenStore: TokenStore): HeaderInterceptor =
+        HeaderInterceptor(tokenStore)
+
+    @Provides
+    @Singleton
+    fun providesOkHttp(headerInterceptor: HeaderInterceptor) =
         OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor)
             .addInterceptor(
                 HttpLoggingInterceptor()
                     .apply {

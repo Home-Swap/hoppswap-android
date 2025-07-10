@@ -8,11 +8,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.hoppswap.core.designsystem.R
 
-val PlayfairDisplay = FontFamily(
-    Font(R.font.playfairdisplay_regular, FontWeight.Normal),
-    Font(R.font.playfairdisplay_bold, FontWeight.Bold),
-)
-
 val Quicksand = FontFamily(
     Font(R.font.quicksand_regular, FontWeight.Normal),
     Font(R.font.quicksand_bold, FontWeight.Bold),
@@ -20,56 +15,56 @@ val Quicksand = FontFamily(
 
 val AppTypography = Typography(
     displayLarge = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Bold,
         fontSize = 57.sp,
         lineHeight = 64.sp,
         letterSpacing = (-0.25).sp
     ),
     displayMedium = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Bold,
         fontSize = 45.sp,
         lineHeight = 52.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp,
         lineHeight = 44.sp
     ),
     headlineLarge = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Bold,
         fontSize = 32.sp,
         lineHeight = 40.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
         lineHeight = 36.sp
     ),
     headlineSmall = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         lineHeight = 32.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp,
         lineHeight = 28.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = PlayfairDisplay,
+        fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp

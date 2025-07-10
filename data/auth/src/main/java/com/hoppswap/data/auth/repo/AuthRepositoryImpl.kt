@@ -17,6 +17,7 @@ class AuthRepositoryImpl @Inject constructor(
         return safeApiCall {
             val loginResponse = authService.attemptLogin(LoginRequest(email, password))
             authSharedPrefs.saveUser(loginResponse.user)
+            authSharedPrefs.saveSessionToken(loginResponse.accessToken)
             loginResponse
         }
     }

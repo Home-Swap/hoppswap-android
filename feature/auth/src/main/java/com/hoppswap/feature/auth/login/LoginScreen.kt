@@ -71,7 +71,7 @@ fun LoginScreen(userLoggedIn: () -> Unit, viewModel: LoginViewModel = hiltViewMo
             Image(
                 painter = painterResource(com.hoppswap.core.designsystem.R.drawable.logo),
                 contentDescription = stringResource(R.string.cont_desc_logo),
-                modifier = Modifier.padding(bottom = XLarge)
+                modifier = Modifier.padding(bottom = XLarge).padding(horizontal = XLarge)
             )
 
             Heading(

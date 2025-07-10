@@ -2,6 +2,8 @@ package com.hoppswap.data.auth.di
 
 import com.hoppswap.data.auth.repo.AuthRepository
 import com.hoppswap.data.auth.repo.AuthRepositoryImpl
+import com.hoppswap.data.auth.repo.PropertyRepository
+import com.hoppswap.data.auth.repo.PropertyRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,4 +15,7 @@ internal abstract class AuthRepoModule {
 
     @Binds
     abstract fun providesAuthRepo(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    abstract fun providesPropertyRepo(propertyRepositoryImpl: PropertyRepositoryImpl): PropertyRepository
 }
