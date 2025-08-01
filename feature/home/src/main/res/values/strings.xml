@@ -2,4 +2,6 @@
 <resources>
     <string name="cont_desc_property_photo">Property Photo</string>
     <string name="label_no_matches">You have no matches</string>
+    <string name="heading_matches">Your matches</string>
+    <string name="heading_messages">Your messages</string>
 </resources>

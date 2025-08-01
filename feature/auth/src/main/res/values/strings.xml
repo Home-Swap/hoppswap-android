@@ -6,7 +6,7 @@
     <string name="login_error_email">That email is invalid, please enter a valid email</string>
     <string name="login_error_auth">We were unable to log in with those details, please check and try again.</string>
     <string name="button_login">Login</string>
-    <string name="label_sign_in">Sign In</string>
+    <string name="button_sign_up">Don\'t have an account? Join the movement here</string>
     <string name="label_email">Email</string>
     <string name="cont_desc_logo">HoppSwap logo</string>
 </resources>

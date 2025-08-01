@@ -20,7 +20,7 @@ fun AppNavigation(contentPadding: PaddingValues) {
     val controller = rememberNavController()
     NavHost(controller, startDestination = LoginScreen) {
         composable<LoginScreen> {
-            LoginScreen({ controller.navigate(HomeScreen) })
+            LoginScreen({ controller.navigate(HomeScreen) }, { controller.navigate(SignUpScreen) })
         }
         composable<SignUpScreen> {
             SignUpScreen(controller)
@@ -29,7 +29,7 @@ fun AppNavigation(contentPadding: PaddingValues) {
             ForgotPasswordScreen(controller)
         }
         composable<HomeScreen> {
-            HomeScreen({ controller.navigate(it) })
+            HomeScreen({ controller.navigate(it) }, { controller.navigate(it) })
         }
         composable<ProfileDetailsScreen> {
             ProfileDetailsScreen(controller)

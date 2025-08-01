@@ -7,6 +7,7 @@ import androidx.security.crypto.MasterKey
 import com.hoppswap.core.network.TokenStore
 import com.hoppswap.data.auth.local.AuthSharedPrefs
 import com.hoppswap.data.auth.network.AuthService
+import com.hoppswap.data.auth.network.MessageService
 import com.hoppswap.data.auth.network.PropertyService
 import dagger.Module
 import dagger.Provides
@@ -26,6 +27,9 @@ class AuthDataModule {
 
     @Provides
     fun providesPropertyService(retrofit: Retrofit): PropertyService = retrofit.create(PropertyService::class.java)
+
+    @Provides
+    fun providesMessageService(retrofit: Retrofit): MessageService = retrofit.create(MessageService::class.java)
 
     @Provides
     @Singleton

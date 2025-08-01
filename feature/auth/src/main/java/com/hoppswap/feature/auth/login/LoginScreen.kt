@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,10 +29,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hoppswap.core.designsystem.component.FormError
-import com.hoppswap.core.designsystem.component.Heading
 import com.hoppswap.core.designsystem.component.PrimaryButton
+import com.hoppswap.core.designsystem.component.TertiaryButton
 import com.hoppswap.core.designsystem.theme.Large
 import com.hoppswap.core.designsystem.theme.Medium
 import com.hoppswap.core.designsystem.theme.Small
@@ -43,7 +45,7 @@ import kotlinx.serialization.Serializable
 object LoginScreen
 
 @Composable
-fun LoginScreen(userLoggedIn: () -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(userLoggedIn: () -> Unit, userSignUp: () -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -53,6 +55,7 @@ fun LoginScreen(userLoggedIn: () -> Unit, viewModel: LoginViewModel = hiltViewMo
         viewModel.action.collect {
             when (it) {
                 LoginAction.NavigateToHomeScreen -> userLoggedIn()
+                LoginAction.NavigateToSignUpScreen -> userSignUp()
             }
         }
     }
@@ -71,12 +74,10 @@ fun LoginScreen(userLoggedIn: () -> Unit, viewModel: LoginViewModel = hiltViewMo
             Image(
                 painter = painterResource(com.hoppswap.core.designsystem.R.drawable.logo),
                 contentDescription = stringResource(R.string.cont_desc_logo),
-                modifier = Modifier.padding(bottom = XLarge).padding(horizontal = XLarge)
-            )
-
-            Heading(
-                text = R.string.label_sign_in,
-                modifier = Modifier.padding(bottom = XLarge)
+                modifier = Modifier
+                    .width(300.dp)
+                    .padding(bottom = XLarge)
+                    .padding(horizontal = XLarge)
             )
 
             OutlinedTextField(
@@ -127,6 +128,10 @@ fun LoginScreen(userLoggedIn: () -> Unit, viewModel: LoginViewModel = hiltViewMo
                 !uiState.loading && email.isNotBlank() && password.isNotBlank(),
                 uiState.loading
             ) { viewModel.onIntent(LoginIntent.OnLoginSubmitted(email, password)) }
+
+            TertiaryButton(R.string.button_sign_up) {
+                viewModel.onIntent(LoginIntent.OnSignUpClicked)
+            }
         }
     }
 }

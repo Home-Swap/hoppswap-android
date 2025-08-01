@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.hoppswap.core.common.base.BaseIntent
 import com.hoppswap.core.common.base.BaseViewModel
 import com.hoppswap.core.common.error.AppException
+import com.hoppswap.core.common.util.isValidEmail
 import com.hoppswap.domain.auth.AttemptLoginArgs
 import com.hoppswap.domain.auth.AttemptLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,12 +28,13 @@ class LoginViewModel @Inject constructor(private val attemptLoginUseCase: Attemp
     override fun onIntent(intent: BaseIntent) {
         when (intent) {
             is LoginIntent.OnLoginSubmitted -> loginSubmitted(intent.email, intent.password)
+            LoginIntent.OnSignUpClicked -> signUpClicked()
         }
     }
 
     private fun loginSubmitted(email: String, password: String) {
         _uiState.update { it.copy(loading = true) }
-        if (isValidEmail(email)) {
+        if (email.isValidEmail()) {
             invokeUseCase(attemptLoginUseCase, AttemptLoginArgs(email, password), ::onLoginSuccess, ::onLoginFailed)
         } else {
             _uiState.update {
@@ -56,8 +58,10 @@ class LoginViewModel @Inject constructor(private val attemptLoginUseCase: Attemp
         }
     }
 
-    private fun isValidEmail(email: String): Boolean {
-        return Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(email)
+    private fun signUpClicked() {
+        viewModelScope.launch {
+            _action.emit(LoginAction.NavigateToSignUpScreen)
+        }
     }
 }
 
@@ -68,10 +72,12 @@ sealed class LoginError {
 
 sealed class LoginAction {
     data object NavigateToHomeScreen : LoginAction()
+    data object NavigateToSignUpScreen : LoginAction()
 }
 
 sealed class LoginIntent : BaseIntent {
     data class OnLoginSubmitted(val email: String, val password: String) : LoginIntent()
+    data object OnSignUpClicked : LoginIntent()
 }
 
 data class LoginUiState(

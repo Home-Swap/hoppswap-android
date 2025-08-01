@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.hoppswap.core.common.base.BaseIntent
 import com.hoppswap.core.common.base.BaseViewModel
 import com.hoppswap.core.common.error.AppException
+import com.hoppswap.data.auth.model.Chat
 import com.hoppswap.data.auth.model.Property
+import com.hoppswap.domain.home.LoadChatsUseCase
 import com.hoppswap.domain.home.LoadMatchesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val loadMatchesUseCase: LoadMatchesUseCase) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val loadMatchesUseCase: LoadMatchesUseCase,
+    private val loadChatsUseCase: LoadChatsUseCase
+) : BaseViewModel() {
 
     private val _action = MutableSharedFlow<HomeAction>()
     val action: SharedFlow<HomeAction> = _action
@@ -29,28 +34,49 @@ class HomeViewModel @Inject constructor(private val loadMatchesUseCase: LoadMatc
         when (intent) {
             is HomeIntent.OnLoadMatches -> onLoadMatches()
             is HomeIntent.OnMatchClicked -> onMatchClicked(intent.property)
+            is HomeIntent.OnChatClicked -> onChatClicked(intent.chat)
         }
     }
 
     private fun onLoadMatches() {
-        invokeUseCase(loadMatchesUseCase, Unit, ::onLoadSuccess, ::onLoadFailed)
+        invokeUseCase(loadMatchesUseCase, Unit, ::onLoadMatchesSuccess, ::onLoadMatchesFailed)
+        invokeUseCase(loadChatsUseCase, Unit, ::onLoadChatsSuccess, ::onLoadChatsFailed)
     }
 
-    private fun onLoadSuccess(properties: List<Property>) {
+    private fun onLoadMatchesSuccess(properties: List<Property>) {
         _uiState.update {
             it.copy(
                 matches = properties,
-                loading = false
+                matchesLoading = false
             )
         }
     }
 
-    private fun onLoadFailed(exception: AppException) {
+    private fun onLoadMatchesFailed(exception: AppException) {
         exception.printStackTrace()
         _uiState.update {
             it.copy(
                 error = HomeError.RetrieveMatchesError,
-                loading = false,
+                matchesLoading = false,
+            )
+        }
+    }
+
+    private fun onLoadChatsSuccess(chats: List<Chat>) {
+        _uiState.update {
+            it.copy(
+                chats = chats,
+                chatsLoading = false
+            )
+        }
+    }
+
+    private fun onLoadChatsFailed(exception: AppException) {
+        exception.printStackTrace()
+        _uiState.update {
+            it.copy(
+                error = HomeError.RetrieveChatsError,
+                chatsLoading = false,
             )
         }
     }
@@ -60,23 +86,34 @@ class HomeViewModel @Inject constructor(private val loadMatchesUseCase: LoadMatc
             _action.emit(HomeAction.NavigateToPropertyDetails(property))
         }
     }
+
+    private fun onChatClicked(chat: Chat) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _action.emit(HomeAction.NavigateToChatPage(chat))
+        }
+    }
 }
 
 data class HomeUiState(
     val matches: List<Property> = emptyList(),
-    val loading: Boolean = true,
+    val chats: List<Chat> = emptyList(),
+    val matchesLoading: Boolean = true,
+    val chatsLoading: Boolean = true,
     val error: HomeError? = null
 )
 
 sealed class HomeError {
     data object RetrieveMatchesError : HomeError()
+    data object RetrieveChatsError : HomeError()
 }
 
 sealed class HomeAction {
     data class NavigateToPropertyDetails(val property: Property) : HomeAction()
+    data class NavigateToChatPage(val chat: Chat) : HomeAction()
 }
 
 sealed class HomeIntent : BaseIntent {
     data object OnLoadMatches : HomeIntent()
     data class OnMatchClicked(val property: Property) : HomeIntent()
+    data class OnChatClicked(val chat: Chat) : HomeIntent()
 }
